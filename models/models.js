@@ -22,12 +22,16 @@ var sequelize = new Sequelize(db_name, user, pwd, {
 
 //importar la definicion de la tabla Quiz quiz.js
 var Quiz = sequelize.define("quiz", {
-	pregunta: "Capital de Italia", 
-	respuesta: "Roma"
+	pregunta: Sequelize.STRING, 
+	respuesta: Sequelize.STRING
 });
 exports.Quiz = Quiz;
 
 //sync() crea e inicializa la tabla de preguntas en la BD
 sequelize.sync().then(function() {
-	return Quiz.create({ pregunta: "Capital de Italia", respuesta: "Roma" });
+	Quiz.count().then(function(count) {
+		if (count > 0) return;
+		Quiz.create({ pregunta: "Capital de Italia", respuesta: "Roma" });
+		Quiz.create({ pregunta: "Capital de Portugal", respuesta: "Lisboa" });
+	});
 });
