@@ -29,6 +29,7 @@ $RECYCLE.BIN/
 .LSOverride
 node_modules
 quiz.prj
+.env
 
 # Thumbnails
 ._*
