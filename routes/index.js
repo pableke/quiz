@@ -13,6 +13,10 @@ router.get('/author', function(req, res, next) {
 	res.render('author', { title: 'Quiz' });
 });
 
+//autoload de comandos con :id
+router.param("id", quizController.load);
+
+//definicion de rutas de /quizes
 router.get("/quizes", quizController.index);
 router.get("/quizes/:id(\\d+)", quizController.show);
 router.get("/quizes/:id(\\d+)/answer", quizController.answer);

@@ -1,5 +1,16 @@
 var models = require("../models/models.js");
 
+//AUTOLOAD
+exports.load = function(req, res, next, id) {
+	models.Quiz.findById(id).then(function(quiz) {
+		if (quiz) {
+			req.quiz = quiz;
+			return next();
+		}
+		next(new Error("No existe id=" + id));
+	}).catch(function(err) { next(err); });
+};
+
 //GET quizes
 exports.index = function(req, res) {
 	models.Quiz.findAll().then(function(quizes) {
@@ -10,17 +21,14 @@ exports.index = function(req, res) {
 //GET quizes/:id
 exports.show = function(req, res) {
 	models.Quiz.findById(req.params.id).then(function(quiz) {
-		res.render("quizes/show", { quiz: quiz });
+		res.render("quizes/show", { quiz: req.quiz });
 	});
 };
 
 //GET quizes/:id/answer
 exports.answer = function(req, res) {
 	models.Quiz.findById(req.params.id).then(function(quiz) {
-		if (req.query.repuesta === quiz.respuesta) {
-			res.render("quizes/answer", { quiz: quiz, respuesta: "Correcto" });
-		} else {
-			res.render("quizes/answer", { quiz: quiz, respuesta: "Incorrecto" });
-		}
+		var resultado = ((req.query.repuesta === quiz.respuesta) ? "Correcto" : "Incorrecto");
+		res.render("quizes/answer", { quiz: req.quiz, respuesta: resultado });
 	});
 };
