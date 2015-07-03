@@ -1,6 +1,18 @@
 
 <table>
+	<tr><td>
+		<form method="get" action="/quizes">
+			<p>Patrón de búsqueda</p>
+			<input type="text" id="search" name="search" />
+			<input type="submit" value="Enviar" />
+		</form>
+		<br /><hr />
+	</td></tr>
 	<% for (var i = 0; i < quizes.length; i++) { %>
 	<tr><td><a href="/quizes/<%=quizes[i].id%>"><%=quizes[i].pregunta%></a></td></tr>
 	<% } %>
 </table>
+
+<script>
+	document.getElementById("search").focus();
+</script>
