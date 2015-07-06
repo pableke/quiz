@@ -20,5 +20,7 @@ router.param("id", quizController.load);
 router.get("/quizes", quizController.index);
 router.get("/quizes/:id(\\d+)", quizController.show);
 router.get("/quizes/:id(\\d+)/answer", quizController.answer);
+router.get("/quizes/new", quizController.new);
+router.post("/quizes/create", quizController.create);
 
 module.exports = router;
