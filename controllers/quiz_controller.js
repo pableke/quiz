@@ -67,7 +67,7 @@ exports.update = function(req, res) {
 	req.quiz.respuesta = req.body.quiz.respuesta;
 	req.quiz.validate().then(function(err) {
 		if (err) {
-			res.render("quizes/new", { quiz: quiz, errors: err.errors });
+			res.render("quizes/edit", { quiz: req.quiz, errors: err.errors });
 		}
 		else {
 			req.quiz.save({ fields: ["pregunta", "respuesta"]})
@@ -75,4 +75,3 @@ exports.update = function(req, res) {
 		}
 	});
 };
-
