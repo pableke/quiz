@@ -14,8 +14,8 @@ exports.load = function(req, res, next, id) {
 //GET quizes
 exports.index = function(req, res) {
 	var search = req.query.search || "";
-	search = "%" + search.replace(" ", "%") + "%";
-	models.Quiz.findAll({where: ["pregunta like ?", search]}).then(function(quizes) {
+	search = "%" + search.replace(" ", "%").toLowerCase() + "%";
+	models.Quiz.findAll({where: ["lower(pregunta) like ?", search]}).then(function(quizes) {
 		res.render("quizes/index", { quizes: quizes, errors: {} });
 	});
 };
