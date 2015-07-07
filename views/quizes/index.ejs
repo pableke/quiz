@@ -1,6 +1,6 @@
 
 <table>
-	<tr><td colspan="2">
+	<tr><td colspan="3">
 		<form method="get" action="/quizes">
 			<p>Patrón de búsqueda</p>
 			<input type="text" id="search" name="search" />
@@ -12,9 +12,14 @@
 		<tr>
 			<td><a href="/quizes/<%=quizes[i].id%>"><%=quizes[i].pregunta%></a></td>
 			<td><a href="/quizes/<%=quizes[i].id%>/edit"><button>Editar</button></a></td>
+			<td>
+				<form method="post" action="/quizes/<%=quizes[i].id%>?_method=delete">
+					<button type="submit" onclick="return confirm('Borrar: <%=quizes[i].pregunta%>');">Borrar</button>
+				</form>
+			</td>
 		</tr>
 	<% } %>
-	<tr><td colspan="2"><hr /><a href="/quizes/new"><button>Crear Pregunta</button></a></td></tr>
+	<tr><td colspan="3"><hr /><a href="/quizes/new"><button>Crear Pregunta</button></a></td></tr>
 </table>
 
 <script>
