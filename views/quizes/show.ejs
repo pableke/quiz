@@ -2,11 +2,12 @@
 <h1>Quiz: el juego de las preguntas</h1>
 <form method="get" action="/quizes/<%= quiz.id %>/answer">
 	<p>Pregunta: <%= quiz.pregunta %></p>
-	<input type="text" id="respuesta" name="respuesta" placeholder="Responda aquí" /><br />
+	<p>El tema de la pregunta es: <%= quiz.tema %></p>
+	<input type="text" id="resp" name="respuesta" placeholder="Responda aquí" /><br />
 	<a href="/quizes"><button type="button">Cancelar</button></a> 
 	<input type="submit" value="Enviar" />
 </form>
 
 <script>
-	document.getElementById("respuesta").focus();
+	document.getElementById("resp").focus();
 </script>
