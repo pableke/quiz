@@ -5,12 +5,12 @@ var quizController = require("../controllers/quiz_controller");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	res.render('index', { title: 'Quiz' });
+	res.render('index', { title: 'Quiz', errors: {} });
 });
 
 /* GET /author. */
 router.get('/author', function(req, res, next) {
-	res.render('author', { title: 'Quiz' });
+	res.render('author', { title: 'Quiz', errors: {} });
 });
 
 //autoload de comandos con :id
@@ -22,5 +22,7 @@ router.get("/quizes/:id(\\d+)", quizController.show);
 router.get("/quizes/:id(\\d+)/answer", quizController.answer);
 router.get("/quizes/new", quizController.new);
 router.post("/quizes/create", quizController.create);
+router.get("/quizes/:id(\\d+)/edit", quizController.edit);
+router.put("/quizes/:id(\\d+)", quizController.update);
 
 module.exports = router;

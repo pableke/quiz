@@ -1,4 +1,5 @@
 var path = require("path");
+
 var url = process.env.DATABASE_URL.match(/(.*)\:\/\/(.*?)\:(.*)@(.*)\:(.*)\/(.*)/);
 var db_name = (url[6] || null);
 var user = (url[2] || null);
@@ -9,8 +10,10 @@ var port = (url[5] || null);
 var host = (url[4] || null);
 var storage = process.env.DATABASE_STORAGE;
 
-//cargo el ORM e indico que la BD es sqlite
+//cargo el Modelo ORM
 var Sequelize = require("sequelize");
+
+//Uso la BD sqlite o postgres
 var sequelize = new Sequelize(db_name, user, pwd, {
 	dialect: dialect, 
 	protocol: protocol, 
@@ -20,12 +23,10 @@ var sequelize = new Sequelize(db_name, user, pwd, {
 	omitNull: true
 });
 
-//importar la definicion de la tabla Quiz quiz.js
-var Quiz = sequelize.define("quiz", {
-	pregunta: Sequelize.STRING, 
-	respuesta: Sequelize.STRING
-});
-exports.Quiz = Quiz;
+//importar la definicion de la tabla Quiz en ./quiz.js
+var quiz_path = path.join(__dirname, "quiz");
+var Quiz = sequelize.import(quiz_path);
+exports.Quiz = Quiz; //exportar tabla quiz
 
 //sync() crea e inicializa la tabla de preguntas en la BD
 sequelize.sync().then(function() {
