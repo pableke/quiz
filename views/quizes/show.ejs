@@ -13,7 +13,9 @@
 </script>
 
 <hr /><br/>
-<p><a href="/quizes/<%= quiz.id %>/comments/new"><button>Nuevo comentario</button></a></p>
+<% if (session.user) { %>
+	<p><a href="/quizes/<%= quiz.id %>/comments/new"><button>Nuevo comentario</button></a></p>
+<% } %>
 <p><b>Comentarios:</b></p>
 <ul>
 <% for (var i in quiz.Comments) { %>

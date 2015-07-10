@@ -1,4 +1,10 @@
-var models = require("../models/models.js");
+//MW de autorizacion de accesos HTTP
+exports.loginRequired = function(req,res,next){
+	if (req.session.user) {
+		return next();
+	}
+	res.redirect('/login');
+};
 
 //GET /login
 exports.new = function(req, res) {
