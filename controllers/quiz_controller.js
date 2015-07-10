@@ -1,13 +1,16 @@
 var models = require("../models/models.js");
 
-//AUTOLOAD
+//AUTOLOAD :id
 exports.load = function(req, res, next, id) {
-	models.Quiz.findById(id).then(function(quiz) {
+	models.Quiz.find({
+		where: { id: Number(id) },
+		include: [{ model: models.Comment }]
+	}).then(function(quiz) {
 		if (quiz) {
 			req.quiz = quiz;
 			return next();
 		}
-		next(new Error("No existe id=" + id));
+		next(new Error("No existe el id = " + id));
 	}).catch(function(err) { next(err); });
 };
 

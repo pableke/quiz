@@ -1,0 +1,11 @@
+
+<p>Añadir nuevo comentario:</p>
+<form method="post" action="/quizes/<%=quizId%>/comments">
+	<label for="comment" class="rem">Comentario:</label>
+	<input type="text" id="comment" name="comment[texto]" value="" placeholder="Comentario" /><br />
+	<input type="submit" value="Enviar" />
+</form>
+
+<script>
+	document.getElementById("comment").focus();
+</script>
