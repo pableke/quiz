@@ -17,6 +17,7 @@ router.get('/author', function(req, res, next) {
 
 //autoload de comandos con :id
 router.param("id", quizController.load);
+router.param("commentId", commentController.load);
 
 //definicion de rutas de session
 router.get("/login", sessionController.new);
@@ -36,5 +37,7 @@ router.delete("/quizes/:id(\\d+)", sessionController.loginRequired, quizControll
 //definicion de rutas de comentarios
 router.get("/quizes/:id(\\d+)/comments/new", commentController.new);
 router.post("/quizes/:id(\\d+)/comments", commentController.create);
+router.get("/quizes/:id(\\d+)/comments/:commentId(\\d+)/publish", 
+			sessionController.loginRequired, commentController.publish);
 
 module.exports = router;

@@ -13,12 +13,17 @@
 </script>
 
 <hr /><br/>
-<% if (session.user) { %>
-	<p><a href="/quizes/<%= quiz.id %>/comments/new"><button>Nuevo comentario</button></a></p>
-<% } %>
+<p><a href="/quizes/<%= quiz.id %>/comments/new"><button>Nuevo comentario</button></a></p>
 <p><b>Comentarios:</b></p>
 <ul>
 <% for (var i in quiz.Comments) { %>
-	<li><%= quiz.Comments[i].texto %></li>
+	<% if (quiz.Comments[i].publicado || session.user) { %>
+		<li>
+			<%= quiz.Comments[i].texto %>
+			<% if (session.user && !quiz.Comments[i].publicado) { %>
+				<a href="/quizes/<%= quiz.id %>/comments/<%= quiz.Comments[i].id %>/publish"><button>Publicar</button></a>
+			<% } %>
+		</li>
+	<% } %>
 <% } %>
 </ul>

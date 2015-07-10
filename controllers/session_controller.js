@@ -1,5 +1,6 @@
+
 //MW de autorizacion de accesos HTTP
-exports.loginRequired = function(req,res,next){
+exports.loginRequired = function(req, res, next){
 	if (req.session.user) {
 		return next();
 	}
@@ -10,7 +11,7 @@ exports.loginRequired = function(req,res,next){
 exports.new = function(req, res) {
 	var errors = req.session.errors || {};
 	req.session.errors = {};
-	res.render("sessions/new", { quizId: req.params.id, errors: errors });
+	res.render("sessions/new", { errors: errors });
 };
 
 //POST /login
