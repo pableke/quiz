@@ -1,0 +1,16 @@
+
+<h2>Login</h2>
+<form method="post" action="/login">
+	<label for="login">Login:</label>
+	<input type="text" id="login" name="login" size="30" /><br />
+	
+	<label for="password">Password:</label>
+	<input type="password" id="password" name="password" size="30" /><br />
+
+	<a href="/"><button type="button">Cancelar</button></a>
+	<input type="submit" name="commit" value="Login" />
+</form>
+
+<script>
+	document.getElementById("login").focus();
+</script>

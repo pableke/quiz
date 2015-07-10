@@ -6,6 +6,7 @@ var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 var partials = require("express-partials");
 var method = require("method-override");
+var session = require("express-session");
 
 var routes = require("./routes/index");
 
@@ -20,10 +21,22 @@ app.set("view engine", "ejs");
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(cookieParser());
+app.use(cookieParser("Quiz 2015")); //semilla para cifrar cookies
+app.use(session({ secret: "sssshhhh"})); //MW de sesion
 app.use(method("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(partials());
+
+//helpers dinamicos
+app.use(function(req, res, next) {
+	//guardamos path en session.redir para despues del login
+	if (!req.path.match(/\/login|\/logout/)) {
+		req.session.redir = req.path;
+	}
+	//hecemos visible req.session en las vistas
+	res.locals.session = req.session;
+	next();
+});
 
 app.use("/", routes);
 
