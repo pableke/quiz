@@ -38,6 +38,23 @@ app.use(function(req, res, next) {
 	next();
 });
 
+//auto-logout
+app.use(function(req, res, next) {
+	var time = new Date();
+	if (req.session.user) {
+		var ses = new Date(req.session.user.time);
+		var dif = time - ses;
+		if (dif > 120000) {
+			delete req.session.user;
+			console.log("---> Han pasado mas de 2 min\n");
+			req.session.errors = [{"message": "Ha excedido su tiempo de sesión"}];
+			return res.redirect("/login");
+		}
+		req.session.user.time = time;
+	}
+	next();
+});
+
 app.use("/", routes);
 
 // catch 404 and forward to error handler

@@ -26,7 +26,7 @@ exports.create = function(req, res) {
 			return res.redirect("/login");
 		}
 		//guardo en la sesion los datos del usuario
-		req.session.user = { id: user.id, name: user.name };
+		req.session.user = { id: user.id, name: user.name, time: new Date() };
 		res.redirect(req.session.redir.toString());
 	});
 };

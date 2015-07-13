@@ -4,6 +4,7 @@ var router = express.Router();
 var quizController = require("../controllers/quiz_controller");
 var commentController = require("../controllers/comment_controller");
 var sessionController = require("../controllers/session_controller");
+var statsController = require('../controllers/statistics_controller');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -39,5 +40,8 @@ router.get("/quizes/:id(\\d+)/comments/new", commentController.new);
 router.post("/quizes/:id(\\d+)/comments", commentController.create);
 router.get("/quizes/:id(\\d+)/comments/:commentId(\\d+)/publish", 
 			sessionController.loginRequired, commentController.publish);
+
+//definicion de las rutas de estadisticas
+router.get("/quizes/statistics", statsController.stats);
 
 module.exports = router;
